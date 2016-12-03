@@ -21,6 +21,7 @@ module YouTube
 
     def first_page
       @result = JSON.parse response.body
+      Page.new(@result)
     end
 
     def next_page
@@ -30,5 +31,18 @@ module YouTube
     def previous_page
       @result = JSON.parse response(previous_page_token).body
     end
+
+    def items
+      @result['items']
+    end
+  end
+end
+
+class YouTube::Page
+  def initialize(result)
+    @result = result
+  end
+  def items
+    @result['items']
   end
 end
