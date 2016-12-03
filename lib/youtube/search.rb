@@ -7,18 +7,28 @@ module YouTube
       @search_word = search_word
     end
 
-    def result
-      response = HTTParty.get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + @search_word + "&key=#{ENV['API_KEY']}")
-      @result = JSON.parse response.body
+    def response(page_token='')
+       HTTParty.get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=#{@search_word}&pageToken=#{page_token}&key=#{ENV['API_KEY']}")
     end
 
     def next_page_token
-      @result["nextPageToken"]
+      @result["nextPageToken"] if @result
+    end
+
+    def previous_page_token
+      @result["prevPageToken"]
+    end
+
+    def first_page
+      @result = JSON.parse response.body
     end
 
     def next_page
-      response = HTTParty.get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + @search_word + "&key=#{ENV['API_KEY']}" + "&pageToken=#{next_page_token}")
-      @result = JSON.parse response.body
+      @result = JSON.parse response(next_page_token).body
+    end
+
+    def previous_page
+      @result = JSON.parse response(previous_page_token).body
     end
   end
 end
