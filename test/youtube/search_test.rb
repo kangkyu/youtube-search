@@ -1,11 +1,13 @@
 require 'test_helper'
 
-class Youtube::SearchTest < Minitest::Test
+class YouTube::SearchTest < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::Youtube::Search::VERSION
+    refute_nil ::YouTube::Search::VERSION
   end
 
   def test_it_does_something_useful
-    assert false
+    refute_nil ENV["API_KEY"], "we need API_KEY env variable"
+    result = YouTube::Search.new("penguin").result
+    assert_match /penguin/i, result["items"].first["snippet"]["title"]
   end
 end

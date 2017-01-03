@@ -6,11 +6,10 @@ require 'youtube/search/version'
 Gem::Specification.new do |spec|
   spec.name          = "youtube-search"
   spec.version       = YouTube::Search::VERSION
-  spec.authors       = ["Kang-Kyu Lee"]
-  spec.email         = ["kangkyu1111@gmail.com"]
+  spec.authors       = ["Kang-Kyu Lee", "Thomas Jung"]
+  spec.email         = ["kangkyu1111@gmail.com", "thomasjunginbox@gmail.com"]
 
-  spec.summary       = %q{Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{Wrap the YouTube Data API Search, in Ruby.}
   spec.homepage      = "https://github.com/LARailsLearners/youtube-search"
   spec.license       = "MIT"
 
