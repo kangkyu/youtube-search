@@ -1,8 +1,8 @@
 # Youtube::Search
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/youtube/search`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to our new gem! You can get search result from YouTube in your Ruby code.
 
-TODO: Delete this and the text above, and describe your gem
+TODO: Publish it as a gem.
 
 ## Installation
 
@@ -22,7 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+API_KEY needed.
+
+TODO: Describe how to get a YouTube API key.
+
+```rb
+search_word = "penguin"
+
+YouTube::Search.new(search_word).result
+```
 
 ## Development
 
@@ -32,7 +40,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/youtube-search.
+Bug reports and pull requests are welcome on GitHub at https://github.com/LARailsLearners/youtube-search.
 
 
 ## License
