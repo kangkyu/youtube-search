@@ -7,7 +7,12 @@ class YouTube::SearchTest < Minitest::Test
 
   def test_it_does_something_useful
     refute_nil ENV["API_KEY"], "we need API_KEY env variable"
-    result = YouTube::Search.new("penguin").response
-    assert_match /penguin/i, result["items"].first["snippet"]["title"]
+
+    search = YouTube::Search.new("penguin")
+    search.first_page!
+
+    result = search.get_search_items
+    assert_match /penguin/i, result.first.title
+    assert_includes result.first.description.downcase, 'penguin'
   end
 end
