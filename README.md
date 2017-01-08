@@ -27,9 +27,11 @@ API_KEY needed.
 TODO: Describe how to get a YouTube API key.
 
 ```rb
-search_word = "penguin"
+search = YouTube::Search.new("penguin")
+search.first_page!
 
-YouTube::Search.new(search_word).result
+search.get_search_items.first.title
+# => "Crazy penguin HD"
 ```
 
 ## Development

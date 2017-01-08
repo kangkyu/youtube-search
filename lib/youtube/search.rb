@@ -1,48 +1,65 @@
-require "youtube/search/version"
 require "httparty"
+
+require "youtube/search/version"
+require "youtube/search/search_items"
+require "youtube/search/search_item"
 
 module YouTube
   class Search
+    include HTTParty
+    base_uri 'https://www.googleapis.com'
+
     def initialize(search_word)
       @search_word = search_word
     end
 
-    def response(page_token='')
-       HTTParty.get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=#{@search_word}&pageToken=#{page_token}&key=#{ENV['API_KEY']}")
+    # set pageToken value for the first page of search result
+    def first_page!
+      @page_token = ''
     end
 
-    def next_page_token
-      @result["nextPageToken"] if @result
+    # set pageToken value for the next page
+    def next_page!
+      @page_token = @result["nextPageToken"] if @result
     end
 
-    def previous_page_token
-      @result["prevPageToken"]
+    # set pageToken value for the previous page
+    def previous_page!
+      @page_token = @result["prevPageToken"]
     end
 
-    def first_page
-      @result = JSON.parse response.body
-      Page.new(@result)
+    def get_search_items
+      SearchItems.new(search_response).items
     end
 
-    def next_page
-      @result = JSON.parse response(next_page_token).body
+    def first(pages = 1)
+      save = []
+      first_page!
+      save += get_search_items
+      (pages - 1).times do
+        next_page!
+        save += get_search_items
+      end
+      save
     end
 
-    def previous_page
-      @result = JSON.parse response(previous_page_token).body
+  private
+
+    def search_response
+      @result = self.class.get(path, query: params)
     end
 
-    def items
-      @result['items']
+    def path
+      '/youtube/v3/search'
     end
-  end
-end
 
-class YouTube::Page
-  def initialize(result)
-    @result = result
-  end
-  def items
-    @result['items']
+    def params
+      {
+        part: 'snippet',
+        q: @search_word,
+        pageToken: @page_token,
+        key: ENV['API_KEY']
+      }
+    end
   end
 end
