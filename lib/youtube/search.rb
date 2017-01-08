@@ -35,10 +35,10 @@ module YouTube
     def first(pages = 1)
       save = []
       first_page!
-      save += get_search_items.items
+      save += get_search_items
       (pages - 1).times do
         next_page!
-        save += get_search_items.items
+        save += get_search_items
       end
       save
     end
