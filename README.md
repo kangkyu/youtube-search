@@ -9,16 +9,12 @@ TODO: Publish it as a gem.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'youtube-search'
+gem 'youtube-search', git: 'https://github.com/LARailsLearners/youtube-search.git'
 ```
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install youtube-search
 
 ## Usage
 
