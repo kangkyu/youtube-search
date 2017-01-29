@@ -24,6 +24,10 @@ module YouTube
       snippet['channelTitle']
     end
 
+    def kind
+      id["kind"]
+    end
+
   private
 
     def snippet
