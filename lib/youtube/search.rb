@@ -2,7 +2,7 @@ require "httparty"
 
 require "youtube/search/version"
 require "youtube/search/search_items"
-require "youtube/search/search_item"
+require "youtube/search/http_error"
 
 module YouTube
   class Search
@@ -46,7 +46,12 @@ module YouTube
   private
 
     def search_response
-      @result = self.class.get(path, query: params)
+      res = self.class.get(path, query: params)
+      if res.code == 400
+        raise HTTPError, JSON(res.body)['error']
+      else
+        @result = res
+      end
     end
 
     def path

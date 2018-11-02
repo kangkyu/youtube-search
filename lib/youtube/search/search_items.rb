@@ -1,3 +1,5 @@
+require "youtube/search/search_item"
+
 module YouTube
   class SearchItems
     def initialize(search_list_response)
