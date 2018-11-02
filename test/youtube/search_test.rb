@@ -12,17 +12,18 @@ class YouTube::SearchTest < Minitest::Test
     search.first_page!
 
     result = search.get_search_items
-    assert_match /penguin/i, result.first.title
-    # assert_includes result.first.description.downcase, 'penguin'
+    assert_match /penguin/i, result[1].title
+    assert_includes result[1].description.downcase, 'penguin'
   end
 
   def test_it_returns_error_sometimes
-    ENV["API_KEY"] = nil
-    search = YouTube::Search.new('penguin')
-    search.first_page!
+    ENV.stub :[], nil do
+      search = YouTube::Search.new('penguin')
+      search.first_page!
 
-    assert_raises YouTube::HTTPError do
-      result = search.get_search_items
+      assert_raises YouTube::HTTPError do
+        search.get_search_items
+      end
     end
   end
 end
