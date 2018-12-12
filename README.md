@@ -1,24 +1,11 @@
+You might want to visit here https://github.com/LARailsLearners/youtube-search for the information.
+
+---
 # Youtube::Search
 
 Welcome to our new gem! You can get search result from YouTube in your Ruby code.
 
 TODO: Publish it as a gem.
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'youtube-search'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install youtube-search
 
 ## Usage
 
