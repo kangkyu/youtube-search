@@ -8,6 +8,10 @@ module YouTube
       snippet['title']
     end
 
+    def default_thumbnail
+      snippet.dig 'thumbnails', 'default', 'url'
+    end
+
     def video_id
       id['videoId']
     end
