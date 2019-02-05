@@ -11,9 +11,10 @@ class YouTube::SearchTest < Minitest::Test
     search = YouTube::Search.new("penguin")
     search.first_page!
 
-    result = search.get_search_items
-    assert_match /penguin/i, result[1].title
-    assert_includes result[1].description.downcase, 'penguin'
+    result = search.get_search_items.first
+    assert_match /penguin/i, result.title
+    assert_includes result.description.downcase, 'penguin'
+    assert_includes result.default_thumbnail, result.video_id
   end
 
   def test_it_returns_error_sometimes
