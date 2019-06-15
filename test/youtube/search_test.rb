@@ -6,15 +6,15 @@ class YouTube::SearchTest < Minitest::Test
   end
 
   def test_it_does_something_useful
-    refute_nil ENV["API_KEY"], "we need API_KEY env variable"
+    refute_nil ENV["YOUTUBE_API_KEY"], "we need YOUTUBE_API_KEY env variable"
 
     search = YouTube::Search.new("penguin")
     search.first_page!
 
     result = search.get_search_items.first
-    assert_match /penguin/i, result.title
+    assert_match /penguin|pingu/i, result.title
     assert_includes result.description.downcase, 'penguin'
-    assert_includes result.default_thumbnail, result.video_id
+    assert_includes result.default_thumbnail, result.video_id if result.kind == "youtube#video"
   end
 
   def test_it_returns_error_sometimes

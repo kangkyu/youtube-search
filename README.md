@@ -18,7 +18,7 @@ And then execute:
 
 ## Usage
 
-API_KEY needed.
+YOUTUBE_API_KEY needed.
 
 TODO: Describe how to get a YouTube API key.
 
