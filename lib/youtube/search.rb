@@ -47,10 +47,12 @@ module YouTube
 
     def search_response
       res = self.class.get(path, query: params)
-      if res.code == 400
-        raise HTTPError, JSON(res.body)['error']
-      else
+      if res.success?
         @result = res
+      elsif res.client_error?
+        raise HTTPError, res.to_s
+      else
+        raise HTTPError, res.inspect
       end
     end
 
@@ -63,7 +65,7 @@ module YouTube
         part: 'snippet',
         q: @search_word,
         pageToken: @page_token,
-        key: ENV['API_KEY']
+        key: ENV['YOUTUBE_API_KEY']
       }
     end
   end
