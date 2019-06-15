@@ -46,6 +46,7 @@ module YouTube
   private
 
     def search_response
+      raise "we need YOUTUBE_API_KEY env variable" unless ENV["YOUTUBE_API_KEY"]
       res = self.class.get(path, query: params)
       if res.success?
         @result = res
